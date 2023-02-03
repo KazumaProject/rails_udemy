@@ -15,7 +15,9 @@
 └── docker-compose.yml
 ```
 
-```Dockerfile: Dockerfile
+Dockerfile
+
+```Dockerfile
 FROM ruby:2.4.5
 RUN apt-get update -qq && apt-get install -y build-essential nodejs
 RUN mkdir /app
@@ -26,13 +28,19 @@ RUN bundle install
 COPY . /app
 ```
 
+Gemfile
+
 ```Gemfile
 source 'https://rubygems.org'
 gem 'rails', '5.0.0.1'
 ```
 
+Gemfile.lock
+
 ```lock
 ```
+
+docker-compose.yml
 
 ```yml
 version: '3'
