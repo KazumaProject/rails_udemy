@@ -65,3 +65,19 @@ services:
 volumes:
   db-volume:
 ```
+
+### 手順
+
+1. 新しいRailsのプロジェクトファイルを作成する
+
+```bash
+docker-compose run web rails new . --force --database=mysql
+```
+
+2. `/config/database.yml`を編集する
+
+3. データベースを作成する
+
+```bash
+docker-compose run web bundle exec rake db:create
+```
