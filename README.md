@@ -2,7 +2,7 @@
 
 ## 内容
 
-[フルスタックエンジニアが教える 即戦力Railsエンジニア養成講座 \| Udemy](https://www.udemy.com/course/rails-kj/)の学習記録のレポジトリです。
+[フルスタックエンジニアが教える 即戦力Railsエンジニア養成講座 \| Udemy](https://www.udemy.com/course/rails-kj/)の学習記録です。
 
 ## railsの環境構成
 ### 初期状態
@@ -15,7 +15,7 @@
 └── docker-compose.yml
 ```
 
-```Dockerfile
+```Dockerfile: Dockerfile
 FROM ruby:2.4.5
 RUN apt-get update -qq && apt-get install -y build-essential nodejs
 RUN mkdir /app
