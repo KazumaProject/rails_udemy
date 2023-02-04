@@ -123,7 +123,7 @@ gem 'mini_racer'
 
 docker-compose buildでbuildし直す
 
-app/assets/stylesheets配下にあるapplication.cssをapplication.scssに変更する
+### app/assets/stylesheets配下にあるapplication.cssをapplication.scssに変更する
 
 application.scss
 ```scss
