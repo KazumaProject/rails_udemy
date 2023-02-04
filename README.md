@@ -162,6 +162,6 @@ docker-compose run web bundle exec rake db:rollback
 
 | HTTPメソッド　| Path | コントローラ#アクション　| 目的 |
 | :-----------|:-------------| :-----| :-----|
-| GET     | /boards | boards#index | 掲示板 |
-| GET     | /boards/new |   boards#new |        |
+| GET     | /boards | boards#index | 掲示板の一覧表示 |
+| GET     | /boards/new |   boards#new | 掲示板を１つ作成するフォームを表示 |
 | POST | /boards   | boards#create |        |
