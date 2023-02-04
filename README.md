@@ -150,8 +150,7 @@ boardsテーブルに作成する
 ```rb
 t.timestamps
 # これは 
-# create_at と update_at
-# のレコードを作成します
+# create_at と update_atのレコードを作成します
 ```
 
 ```bash
