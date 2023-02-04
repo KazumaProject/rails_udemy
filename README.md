@@ -81,3 +81,60 @@ docker-compose run web rails new . --force --database=mysql
 ```bash
 docker-compose run web bundle exec rake db:create
 ```
+
+## Railsの基本理念
+
+- 同じことは繰り返すな (Don't Repeat Yourself:DRY)
+
+- 設定よりも規約が優先される (Convention Over Configuration)
+
+## 新しいWebページの作成
+
+rootは,localhost:3000にアクセスが来た場合のルーティング
+
+/config/routes.rb
+```rb
+Rails.application.routes.draw do
+  root 'boards#index'
+end
+
+```
+BoardsControllerクラスのindexメソッドを実行するように定義
+
+app/controllers.boards_controller.rb
+
+boards_controller.rb
+```rb
+class BoardsController < ApplicationController
+  def index
+  end
+end
+```
+
+app/view/boards/index.html.erb
+
+app/view配下にController名を同じdirectoryを作成する
+
+## Bootstrapの導入
+
+Gemfile
+```Gemfile
+gem 'bootstrap', '~> 4.0.0'
+gem 'mini_racer'
+```
+
+docker-compose buildでbuildし直す
+
+app/assets/stylesheets配下にあるapplication.cssをapplication.scssに変更する
+
+application.scss
+```scss
+@import "bootstrap";
+```
+
+app/assets/javascripts/application.js
+```js
+//= require jquery3
+//= require popper
+//= require bootstrap-sprockets
+```
