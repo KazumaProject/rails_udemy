@@ -136,3 +136,27 @@ app/assets/javascripts/application.js
 //= require popper
 //= require bootstrap-sprockets
 ```
+
+## Modelを作成する
+
+```bash
+docker-compose run web bundle exec rails g model boards name:string title:string body:text
+```
+boardsテーブルに作成する
+  - String型のname
+  - String型のtitle
+  - Text型のbody
+
+```rb
+t.timestamps
+# これは 
+# create_at と update_at
+# のレコードを作成します
+```
+
+```bash
+docker-compose run web bundle exec rake db:migrate
+
+# 直前のmigrationを取り消す
+docker-compose run web bundle exec rake db:rollback
+```
