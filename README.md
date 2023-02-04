@@ -99,11 +99,9 @@ Rails.application.routes.draw do
 end
 
 ```
-BoardsControllerクラスのindexメソッドを実行するように定義
+### BoardsControllerクラスのindexメソッドを実行するように定義
 
 app/controllers.boards_controller.rb
-
-boards_controller.rb
 ```rb
 class BoardsController < ApplicationController
   def index
