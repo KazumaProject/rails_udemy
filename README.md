@@ -160,8 +160,8 @@ docker-compose run web bundle exec rake db:migrate
 docker-compose run web bundle exec rake db:rollback
 ```
 
-| Tables        | Are           | Cool  | 目的   |
-| :------------- |:-------------| :-----| :-----|
-| col 3 is      | right-aligned | $1600 | 掲示板 |
-| col 2 is      | centered      |   $12 |        |
-| zebra stripes | are neat      |    $1 |        |
+| HTTPメソッド　| Path | コントローラ#アクション　| 目的 |
+| :-----------|:-------------| :-----| :-----|
+| GET     | /boards | boards#index | 掲示板 |
+| GET     | /boards/new |   boards#new |        |
+| POST | /boards   | boards#create |        |
