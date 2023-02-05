@@ -175,3 +175,71 @@ docker-compose run web bundle exec rake db:rollback
 ```rb
 get 'boards', to: 'boards#index'
 ```
+
+## pry-byebugの導入
+
+```rb
+group :development do
+  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
+  gem 'web-console'
+  gem 'listen', '~> 3.0.5'
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'pry-byebug'
+end
+```
+
+buildし直す
+
+```rb
+def create
+  Board.create(board_params)
+  binding.pry
+end
+```
+
+```bash
+docker attach rails_web_1
+```
+```rb
+  def create
+    Board.create(board_params)
+  end
+
+  private
+
+  def board_params
+    params.require(:board).permit(:name, :title, :body)
+  end
+```
+```rb
+ board = Board.all.first
+ ```
+## Timezoneを変更する
+
+```rb
+module App
+  class Application < Rails::Application
+    config.time_zone = 'Tokyo'
+  end
+end
+```
+
+## 時間をフォーマットする
+
+```rb
+ <th><%= board.created_at.strftime('%Y年 %m月 %d日 %H時 %M分') %></th>
+```
+
+## 時間のフォーマットを管理する
+
+./config/initializers/time_formats.rbを作成する
+
+```rb
+Time::DATE_FORMATS[datetime_jp] = '%Y年 %m月 %d日 %H時 %M分'
+```
+
+```rb
+<th><%= board.created_at.to_s(:datetime_jp) %></th>
+```
