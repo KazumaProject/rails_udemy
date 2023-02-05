@@ -169,3 +169,9 @@ docker-compose run web bundle exec rake db:rollback
 | GET | /boards/:id/edit | boards#edit | 掲示板を1つ編集するためのフォームを表示 |
 | PATCH/PUT | /boards/:id   | boards#update | 掲示板の内容を更新する |
 | DELETE | /boards/:id   | boards#destory | 掲示板を削除する |
+
+## 新規作成ページの作成
+
+```rb
+get 'boards', to: 'boards#index'
+```
