@@ -243,3 +243,35 @@ Time::DATE_FORMATS[datetime_jp] = '%Y年 %m月 %d日 %H時 %M分'
 ```rb
 <th><%= board.created_at.to_s(:datetime_jp) %></th>
 ```
+
+## リソースベースルーティングとURL用Helper
+
+### ブラウザでroutesを確認
+
+```
+http://localhost:3000/rails/info/routes
+```
+
+8つのメソッドを作成
+```rb
+Rails.application.routes.draw do
+  resources :boards
+end
+```
+
+Routesを制限
+```rb
+Rails.application.routes.draw do
+  resources :boards, only: [:index, :new, :create, :show]
+end
+```
+
+board.idが1の場合/boards/1がリンク先となる
+```erb
+<td><%= link_to '詳細', board, class: 'btn btn-outline-dark'%> </td>
+```
+
+boards一覧に飛ぶ
+```erb
+<%= link_to '掲示板一覧', boards_path, class: 'btn btn-outline-dark'%>
+```
