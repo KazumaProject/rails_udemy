@@ -553,3 +553,55 @@ docker-compose run --rm web bundle exec annitate
 # migrateion後自動でannotationが追加される 
 docker-compose exec web bundle exec rails g annotate:install
 ```
+
+## Comentモデルの作成
+
+```bash
+docker-compose run web bundle exec rails g \
+model comment board:references name:string comment:text
+```
+
+`boaed:references`はBoardモデルと紐付ける為のboard_id columnが作成される
+
+### コマンド実行後作成された./db/migrate/<time_stamp>.rb
+```rb
+class CreateComments < ActiveRecord::Migration[5.0]
+  def change
+    create_table :comments do |t|
+      t.references :board, foreign_key: true
+      t.string :name
+      t.text :comment
+
+      t.timestamps
+    end
+  end
+end
+```
+
+### not null制約をつける
+```rb
+class CreateComments < ActiveRecord::Migration[5.0]
+  def change
+    create_table :comments do |t|
+
+      t.string :name, null: false
+      t.text :comment, null: false
+    end
+  end
+end
+```
+
+./app/models/board.rb
+```rb
+class Board < ApplicationRecord
+  #追加
+  has_many :comments
+end
+```
+
+./app/models/comment.rb
+```rb
+class Comment < ApplicationRecord
+  belongs_to :board
+end
+```
