@@ -5,4 +5,5 @@ WORKDIR /app
 COPY Gemfile /app/Gemfile
 COPY Gemfile.lock /app/Gemfile.lock
 RUN bundle install
+COPY views_generator.rb /usr/local/bundle/gems/kaminari-core-1.2.2/lib/generators/kaminari/
 COPY . /app

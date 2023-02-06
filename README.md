@@ -371,3 +371,95 @@ class BoardsController < ApplicationController
 end
 
 ```
+
+## 手動でdbのデータを編集する
+
+./db/seeds.rb
+```rb
+if Rails.env == 'development'
+  (1..50).each do |i|
+    Board.create(name: "ユーザー#{i}", title: "タイトル#{i}", body: "本文#{i}")
+  end
+end
+```
+
+## ページネーションの実装
+
+###　シードデータの投入コマンド
+```bash
+docker-compose exec web bundle exec rake db:seed
+```
+
+### kaminariをGwmfileに追加する
+```rb
+gem 'kaminari'
+```
+
+### kaminariの設定ファイルを生成する
+```bash
+docker-compose exec web bundle exec rails g kaminari:config
+```
+
+### kaminariのviewファイルを生成する
+```bash
+docker-compose exec web bundle exec rails g kaminari:views bootstrap4
+```
+
+./app/controllers/boards_controller.rb
+```rb
+def index
+  @boards = Board.page(params[:page])
+end
+```
+
+./app/views/boards/index.html.erb
+```erb
+<div class="d-flex align-items-center">
+  ...
+</div>
+<table class="table table-hover boards__table">
+...
+</table>
+
+# 追加
+<%= paginate @boards%>
+```
+
+./config/application.rb
+```rb
+module App
+  class Application < Rails::Application
+    config.i18n.default_local = :ja
+  end
+end
+```
+
+./config/locales/ja.yml
+```yml
+ja:
+  views:
+    pagination:
+      first: '最初'
+      last: '最後'
+      previous: '前'
+      next: '次'
+      truncate: '...'
+```
+### kaminariのページネーションの設定
+
+./config/initializers/kaminari_config.rb
+```rb
+Kaminari.configure do |config|
+  # config.default_per_page = 25
+  # config.max_per_page = nil
+  # config.window = 4
+  # config.outer_window = 0
+  # config.left = 0
+  # config.right = 0
+  # config.page_method_name = :page
+  # config.param_name = :page
+  # config.max_pages = nil
+  # config.params_on_first_page = false
+end
+
+```

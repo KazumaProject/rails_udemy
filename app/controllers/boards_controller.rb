@@ -1,7 +1,7 @@
 class BoardsController < ApplicationController
   before_action :set_target_board, only: %i[show edit update destroy]
   def index
-    @boards = Board.all
+    @boards = Board.page(params[:page])
   end
 
   def new
@@ -20,13 +20,13 @@ class BoardsController < ApplicationController
   end
 
   def update
-    board.update(board_params)
+    @board.update(board_params)
 
     redirect_to board
   end
 
   def destroy
-    board.delete
+    @board.delete
 
     redirect_to boards_path
   end
