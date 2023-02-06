@@ -31,6 +31,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 gem 'kaminari', '~> 1.1.1'
+gem 'bootstrap', '~> 4.0.0'
 gem 'mini_racer'
 gem 'rails-i18n'
 

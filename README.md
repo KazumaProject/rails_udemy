@@ -605,3 +605,19 @@ class Comment < ApplicationRecord
   belongs_to :board
 end
 ```
+
+## コメント書き込み機能のルート追加&コントローラー作成
+
+### commentsコントローラを作成
+```bash
+docker-compose exec web \
+rails g controller comments create destroy --skip-template-engine
+```
+
+### ./confug/routes.rbを編集
+```rb
+Rails.application.routes.draw do
+  resources :boards
+  resources :comments, only: %i[create destroy]
+end
+```
