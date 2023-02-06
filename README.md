@@ -354,7 +354,7 @@ objext: @boardとした場合は、パーシャル名(board)と同名のロー�
 
 削除ボタンのクリックにより_method=deleteというパラメータが送信される
 
-## コントローラのフィルタ機能
+## コントローラのフィルタ-機能
 ```rb
 class BoardsController < ApplicationController
   before_action :set_target_board, only: %i[show edit update destroy]
