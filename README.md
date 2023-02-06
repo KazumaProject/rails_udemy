@@ -485,3 +485,68 @@ def destroy
   redirect_to boards_path, flash: {notice: "「#{@board.title}の掲示板が削除されました」"}
 end
 ```
+## Boardモデルのバリデーション
+
+./app/models/board.rb
+
+```rb
+class Board < ApplicationRecord
+validates :name, presence: true, length: {maximum: 10}
+validates :title, presence: true, length: {maximum: 30}
+validates :body, presence: true, length: {maximum: 1000}
+end
+```
+
+```rb
+   def create
+    board = Board.new(board_params)
+    if board.save
+      flash[:notice] = "「#{board.title}」の掲示板を作りました"
+      redirect_to board
+    else
+      redirect_to new_board_path, flash: {
+        board: board,
+        error_messages: board.errors.full_messages
+      }
+    end
+  end
+```
+
+エラーを日本語表記にする
+```Gemfile
+gem 'rails-i18n'
+```
+
+エラーの中身の表記を日本語にする
+```yml
+ja:
+  activerecord:
+    attributes:
+      board:
+        name: 名前
+        title: タイトル
+        body: 本文
+```
+
+## モデルのアソシエーション, annotationのgem追加
+
+### commentsテーブル
+
+| column　| 用途 |
+| :--------|:-------------|
+| id       | コメントID  |
+| board_id | 関連する　boardのid |
+| name     | コメント記入者名 |
+| comment  | コメント内容 |
+
+### annotationの追加
+
+``` Gemfile
+gem 'annotate', '~> 2.7'
+```
+
+```bash
+docker-compose run --rm web bundle update rake
+docker-compose build
+docker-compose run --rm web bundle exec annitate
+```
