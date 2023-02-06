@@ -275,3 +275,27 @@ boards一覧に飛ぶ
 ```erb
 <%= link_to '掲示板一覧', boards_path, class: 'btn btn-outline-dark'%>
 ```
+
+databaseの書き換え
+```rb
+ def update
+    board = Board.find(params[:id])
+    board.updare(boards_params)
+  end
+```
+
+/board/:idにredirectされる
+```rb
+def update
+    board = Board.find(params[:id])
+    board.updare(boards_params)
+    redirect_to boards
+  end
+```
+
+```erb
+<div class="ml-auto boards__linkBox">
+  <%= link_to '一覧', boards_path, class: 'btn btn-outline-dark'%>
+  <%= link_to '編集',edit_board_path(@board), class: 'btn btn-outline-dark'%>
+</div>
+```
