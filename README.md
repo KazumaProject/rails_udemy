@@ -147,10 +147,20 @@ boardsテーブルに作成する
   - String型のtitle
   - Text型のbody
 
+./db/migrate/create_boards.rb
 ```rb
-t.timestamps
-# これは 
-# create_at と update_atのレコードを作成します
+class CreateBoards < ActiveRecord::Migration[5.0]
+  def change
+    create_table :boards do |t|
+      t.string :name
+      t.string :title
+      t.text :body
+
+      # これはcreate_at と update_atのレコードを作成します
+      t.timestamps
+    end
+  end
+end
 ```
 
 ```bash
