@@ -299,3 +299,57 @@ def update
   <%= link_to '編集',edit_board_path(@board), class: 'btn btn-outline-dark'%>
 </div>
 ```
+
+./app/views/boards/_form.html.erb
+```erb
+<%= form_for board do |f| %>
+<div class="form-group">
+  <%= f.label :name, '名前' %>
+  <%= f.text_field :name, class: 'form-control' %>
+</div> 
+<div class="form-group">
+  <%= f.label :title, 'タイトル' %>
+  <%= f.text_field :title, class: 'form-control' %>
+</div>
+<div class="form-group">
+  <%= f.label :body, '本文' %>
+  <%= f.text_area :body, class: 'form-control', rows: 10 %>
+</div>
+<%= f.submit '保存', class: 'btn btn-primary' %>
+<% end %>
+```
+
+パーシャルを呼び出す
+```erb
+<%= render partial: 'form', locals: { board: @board } %>
+```
+ アンダースコアが必要は必要ない
+
+./app/views/boards/_board.html.erb
+```erb
+<div class="card">
+  <div class="card-header">
+    <h4><%= @board.title %></h4>
+  </div>
+  <div class="card-body">
+    <p class="card-text"><%= simple_format(board.body) %></p>
+    <p class="text-right font-weight-bold mr-10"><%= board.name %></p>
+  </div>
+</div>
+```
+
+./app/views/boards/show.html.erb
+```erb
+<%= render partial: 'board', object: @board %>
+
+<%= render @board %>
+```
+
+objext: @boardとした場合は、パーシャル名(board)と同名のローカル変数が作成されて、パーシャルに渡される。
+
+## 掲示板の削除機能
+```erb
+<td><%= link_to '削除', board, class: 'btn btn-outline-dark', method: :delete%></td>
+```
+
+削除ボタンのクリックにより_method=deleteというパラメータが送信される
