@@ -385,7 +385,7 @@ end
 
 ## ページネーションの実装
 
-###　シードデータの投入コマンド
+### シードデータの投入コマンド
 ```bash
 docker-compose exec web bundle exec rake db:seed
 ```
@@ -549,4 +549,7 @@ gem 'annotate', '~> 2.7'
 docker-compose run --rm web bundle update rake
 docker-compose build
 docker-compose run --rm web bundle exec annitate
+
+# migrateion後自動でannotationが追加される 
+docker-compose exec web bundle exec rails g annotate:install
 ```
