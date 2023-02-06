@@ -10,6 +10,7 @@ class BoardsController < ApplicationController
 
   def create
     board = Board.create(board_params)
+    flash[:notice] = "「#{board.title}」の掲示板を作りました"
     redirect_to board
   end
 
@@ -21,14 +22,12 @@ class BoardsController < ApplicationController
 
   def update
     @board.update(board_params)
-
     redirect_to board
   end
 
   def destroy
     @board.delete
-
-    redirect_to boards_path
+    redirect_to boards_path, flash: { notice: "「#{@board.title}の掲示板が削除されました」"}
   end
 
   private

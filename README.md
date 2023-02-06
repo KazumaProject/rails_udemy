@@ -463,3 +463,25 @@ Kaminari.configure do |config|
 end
 
 ```
+
+## フラッシュでメッセージを表示
+```rb
+def create
+  flash[:notice] = "「#{board.title}」の掲示板を作りました"
+end
+```
+
+./app/views/show.html.erb
+```erb
+<% if flash[:notice]%>
+  <div class="alert alert-primary"><%= flash[:notice] %> </div>
+<% end %>
+```
+
+redirect_toを使用したflashの表示
+```rb
+def destroy
+  @board.delete
+  redirect_to boards_path, flash: {notice: "「#{@board.title}の掲示板が削除されました」"}
+end
+```
