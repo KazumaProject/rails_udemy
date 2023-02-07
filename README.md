@@ -682,3 +682,9 @@ class CommentsController < ApplicationController
   end
 end
 ```
+## コメント表示の実装
+
+./app/views/comments/_form.html.erbを指定
+```rb
+<%= render partial: 'comments/form', locals: { comment: @comment} %>
+```
