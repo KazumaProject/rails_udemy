@@ -12,7 +12,7 @@
 
 class Board < ApplicationRecord
   has_many :comments
-  has_many :board_tag_relations
+  has_many :board_tag_relations, dependent: :delete_all
   has_many :tags, through: :board_tag_relations
 
   validates :name, presence: true, length: { maximum: 10 }

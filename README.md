@@ -721,3 +721,19 @@ class Board < ApplicationRecord
   has_many :tags, through: :board_tag_relations
 end
 ```
+
+## アソシエーションのdependentオプション
+
+### destroyメソッドから呼ばれる
+
+```rb
+class Board < ApplicationRecord
+  has_many :board_tag_relations, dependent: :delete_all
+end
+```
+
+```rb
+class Tag < ApplicationRecord
+  has_many :board_tag_relations, dependent: :delete_all
+end
+```
