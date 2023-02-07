@@ -737,3 +737,16 @@ class Tag < ApplicationRecord
   has_many :board_tag_relations, dependent: :delete_all
 end
 ```
+
+## タグを使用した掲示板検索機能
+
+```rb
+  def index
+    @boards = params[:tag_id].present? ? Tag.find(params[:tag_id]).boards : Board.all
+    @boards = @boards.page(params[:page])
+  end
+```
+
+もしtag idがあったら Tagに基づく掲示板を取得する
+
+もしtag idがなかった Board.allで全ての掲示板を取得する
