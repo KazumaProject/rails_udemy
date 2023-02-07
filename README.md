@@ -688,3 +688,25 @@ end
 ```rb
 <%= render partial: 'comments/form', locals: { comment: @comment} %>
 ```
+
+## 多対多の関連づけ
+
+### tag modelの作成
+```bash
+docker-compose exec web bundle exec \
+rails g model tag name:string
+```
+
+### 中間テーブルの作成
+```bash
+docker-compose exec web bundle exec \
+rails g model board_tag_relation board:references tag:references
+```
+
+### Tagを中間テーブルを通して　Boardと関連づける
+```rb
+class Tag < ApplicationRecord
+  has_many :board_tag_relations
+  has_many :boards, through: :board_tag_relations
+end
+```
