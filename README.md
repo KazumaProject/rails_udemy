@@ -644,3 +644,41 @@ end
 ```
 
 hiffen_fieldでboard_idを隠す
+
+## コメント保存機能
+
+### デバッグ結果を整形
+```Gemfile
+  gem 'rails-flog', require: 'flog'
+```
+
+### comments_controller
+```rb
+class CommentsController < ApplicationController
+  def create
+    comment = Comment.new(comment_params)
+    if comment.save
+      flash[:notice] = 'コメントを投稿しました'
+      redirect_to comment.board
+    else
+      redirect_to :bask, flash: {
+        comment: comment,
+        error_messages: comment.errors.full_messages
+      }
+      # Rails 5.1以降は
+      # flash[:comment] = comment
+      # flash[:error_messages] = comment.errors.full_messages
+      # redirect_back fallback_location: comment.board
+    end
+  end
+
+  def destroy
+  end
+
+  private
+
+  def comment_params
+    params.require(:comment).permit(:board_id, :name, :comment)
+  end
+end
+```
