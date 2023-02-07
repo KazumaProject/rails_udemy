@@ -704,9 +704,20 @@ rails g model board_tag_relation board:references tag:references
 ```
 
 ### Tagを中間テーブルを通して　Boardと関連づける
+
+#### ./app/models/tag.rb
 ```rb
 class Tag < ApplicationRecord
   has_many :board_tag_relations
   has_many :boards, through: :board_tag_relations
+end
+```
+
+#### ./app/models/board.rb
+```rb
+class Board < ApplicationRecord
+  has_many :comments
+  has_many :board_tag_relations
+  has_many :tags, through: :board_tag_relations
 end
 ```
