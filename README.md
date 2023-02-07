@@ -642,3 +642,5 @@ end
   <% end %>
 </div>
 ```
+
+hiffen_fieldでboard_idを隠す
