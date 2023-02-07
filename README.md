@@ -621,3 +621,24 @@ Rails.application.routes.draw do
   resources :comments, only: %i[create destroy]
 end
 ```
+
+## コメント書き込みフォームの作成
+
+./app/views/boards/_comment_form.html.erb
+```erb
+<div class="p-comment__formBox">
+  <p class="p-comment__formTitle">コメント記入</p>
+  <%= form_for comment do |f| %>
+    <%= f.hidden_field :board_id %>
+    <div class="form-group">
+      <%= f.label :name, '名前' %>
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :comment, 'コメント' %>
+      <%= f.text_area :comment, class: 'form-control', rows: 4 %>
+    </div>
+    <%= f.submit '送信', class: 'btn btn-primary' %>
+  <% end %>
+</div>
+```
