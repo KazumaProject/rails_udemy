@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   # get 'boards/new', to: 'boards#new'
   # post 'boards', to: 'boards#create'
   # get 'boards/:id', to: 'boards#show'
+  root 'home#index'
   resources :boards
   resources :comments, only: %i[create destroy]
 end
