@@ -896,3 +896,19 @@ end
 user_idに値があるかどうかでログインしているか判断する
 
 `@user = User.new(flash[:user])` で入力に問題があっても記入したものが残る
+
+## ログインユーザの取得
+```rb
+class ApplicationController < ActionController::Base
+  protect_from_forgery with: :exception
+  before_action :current_user
+
+  private
+
+  def current_user
+    return unless session[:user_id]
+    @current_user = User.find_by(id: session[:user_id])
+  end
+end
+```
+session[:user_id]があればログイン
