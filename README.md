@@ -911,4 +911,10 @@ class ApplicationController < ActionController::Base
   end
 end
 ```
-session[:user_id]があればログイン
+session[:user_id]があればログインしている
+
+## Railsのバージョンアップ
+- Gemを含めてアップデートが必要となる
+
+- バージョンアップにより、そのままではコードが動作しなくなる、動作が変わる可能性有
+
