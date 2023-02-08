@@ -918,3 +918,13 @@ session[:user_id]があればログインしている
 
 - バージョンアップにより、そのままではコードが動作しなくなる、動作が変わる可能性有
 
+## Rails 5.0系 -> 5.2系
+### Gemfileを編集
+```Gemfile
+'rails', '~> 5.2.2'
+```
+
+### bundle update
+```bash
+docker-compose run web bundle update rails
+```
