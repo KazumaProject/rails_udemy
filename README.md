@@ -760,3 +760,60 @@ HTTPプロトコルはステートレスなので状態を持っておらず２�
 1. ユーザー: 1回目のアクセスでログイン認証
 2. サーバー: セッションIDを渡す (Cookieにセットされる)
 3. ユーザー: 2回目にCookieに保存されたセッションIDを送る
+
+### ユーザー認証に必要なController, View, Modelの作成
+Railsに備わっている `has_secure_password` を使用する
+
+```Gemfile
+# コメントアウトを削除する
+gem 'bcrypt', '~> 3.1.7'
+```
+
+### User Modelを生成する
+```bash
+docker-compose exec web \
+rails g model user name:string password_digest:string
+```
+
+`password_digest` は `has_secure_password` で使用され暗号化されたパスワードが入れられる
+
+./db/migrate/ 配下の `create_users` を編集する
+```rb
+class CreateUsers < ActiveRecord::Migration[5.0]
+  def change
+    create_table :users do |t|
+      t.string :name, null: false
+      t.string :password_digest, null: false
+
+      t.timestamps
+    end
+    add_index :users, :name, unique: true
+  end
+end
+```
+
+```bash
+docker-compose exec web rails db
+:migrate
+```
+
+### Sessions Controllerを生成する
+```bash
+docker-compose exec web \
+rails g controller sessions create destory --skip-template-engine
+```
+view fileはスキップする
+
+### Home Controllerを生成する
+Home Controllerはrootで使用される
+
+```bash
+docker-compose exec web \
+rails g controller home index
+```
+
+### Users Controllerを生成する
+```bash
+docker-compose exec web \
+rails g controller users new create me
+```
