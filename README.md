@@ -818,7 +818,7 @@ docker-compose exec web \
 rails g controller users new create me
 ```
 
-### ユーザー認証で使用するRoutingの設定
+## ユーザー認証で使用するRoutingの設定
 
 ```rb
 Rails.application.routes.draw do
@@ -838,3 +838,33 @@ end
 - get 'users/me' をmypageにする
 
 - loginをsessions#createで行い、logoutをsessions#destroyで行う
+
+## ユーザーモデルの認証機能の設定
+./app/models/user.rb
+```rb
+class User < ApplicationRecord
+  has_secure_password
+end
+```
+
+`has_secure_password` の設定によりpassword属性とpassword_confirmation属性が追加される
+
+### Validationの追加
+```rb
+class User < ApplicationRecord
+  has_secure_password
+
+  validates :name,
+    presence: true,
+    uniqueness: true,
+    length: { maximum: 16 },
+    format: {
+      with: /\A[a-z0-9]+\z/,
+      message: 'は小文字英数字で入力してください'
+    }
+
+  validates :password,
+  length: { minimum: 8 }
+end
+
+```
