@@ -928,3 +928,12 @@ session[:user_id]があればログインしている
 ```bash
 docker-compose run web bundle update rails
 ```
+
+## form_withヘルパー
+
+```bash
+grep -R form_ a
+pp/views/
+```
+
+form_が使用されている箇所を探す
