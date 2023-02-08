@@ -868,3 +868,31 @@ class User < ApplicationRecord
 end
 
 ```
+
+## ユーザー登録機能の実装
+
+### UsersController
+```rb
+ def new
+    @user = User.new(flash[:user])
+  end
+
+ def create
+    user = User.new(user_params)
+    if user.save
+      session[:user_id] = user.id
+      redirect_to mypage_path
+    else
+      redirect_to :back, flash: {
+        user: user,
+        error_massages: user.errors.full_messages
+      }
+    end
+  end
+```
+
+`session[:user_id]` でuser_idの変数にuser.idを格納している。ページを跨いで参照できる
+
+user_idに値があるかどうかでログインしているか判断する
+
+`@user = User.new(flash[:user])` で入力に問題があっても記入したものが残る
