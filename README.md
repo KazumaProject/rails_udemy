@@ -817,3 +817,24 @@ rails g controller home index
 docker-compose exec web \
 rails g controller users new create me
 ```
+
+### ユーザー認証で使用するRoutingの設定
+
+```rb
+Rails.application.routes.draw do
+  get 'mypage', to: 'users#me'
+  post 'login', to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy'
+
+  root 'home#index'
+  resources :users, only: %i[new create]
+  resources :boards
+  resources :comments, only: %i[create destroy]
+end
+```
+
+- usersをresources形式に直す
+
+- get 'users/me' をmypageにする
+
+- loginをsessions#createで行い、logoutをsessions#destroyで行う
