@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_08_153834) do
+ActiveRecord::Schema.define(version: 2023_02_09_142446) do
 
   create_table "board_tag_relations", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "board_id"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 2023_02_08_153834) do
     t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "birthday"
     t.index ["name"], name: "index_users_on_name", unique: true
   end
 

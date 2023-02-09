@@ -994,3 +994,18 @@ t RAILS_ENV=test
 docker-c
 ompose exec web bundle exec rspec ./spec/models
 ```
+
+### ./spec/models/user_spec.rb
+```rb
+RSpec.describe User, type: :model do
+  describe '#age' do
+    context '20年前の生年月日の場合' do
+      let(:user) { User.new(birthday: Time.zone.now - 20.years) }
+
+      it '年齢が20歳であること' do
+        expect(user.age).to eq 20
+      end
+    end
+  end
+end
+```
