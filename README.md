@@ -941,7 +941,10 @@ form_が使用されている箇所を探す
 ## RSpecの導入
 
 ```bash
-docker-compose run web bundle exec rspec 
+# docker-compose run web bundle exec rspec 
+
+docker-compose exec web bundle exec rails generate rspec:
+install
 ```
 
 ### generatorでテンプレートを生成
@@ -954,4 +957,40 @@ ser
 ### controllerのテストのテンプレート
 ```bash
 docker-compose exec web bundle exec rails g rspec:controller User
+```
+
+### Rails 5.0.0.1 -> 5.2.2 へバージョンアップすることで発生するRSpecのエラー
+
+```
+ActiveRecord::MismatchedForeignKey: Column `board_id` on table `board_tag_relations` does not match column `id` on `boards`, which has type `bigint(20)`
+```
+
+Rails5.1~外部キーがデフォルトでBigintになる
+
+### ./db/create_board_tag_relations.rb
+```rb
+class CreateBoardTagRelations < ActiveRecord::Migration[5.0]
+  def change
+    create_table :board_tag_relations do |t|
+      t.references :board, foreign_key: true, type: :integer
+      t.references :tag, foreign_key: true, type: :integer
+
+      t.timestamps
+    end
+  end
+end
+```
+
+typeを追加
+
+```bash
+docker-c
+ompose exec web bundle exec rails db:migrate:rese
+t RAILS_ENV=test
+```
+
+### rspecのテストを実行
+```bash
+docker-c
+ompose exec web bundle exec rspec ./spec/models
 ```
