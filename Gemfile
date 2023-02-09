@@ -40,6 +40,7 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'rails-flog', require: 'flog'
   gem 'rspec-rails', '~> 5.0.0'
+  gem 'rails-controller-testing'
 end
 
 group :development do
