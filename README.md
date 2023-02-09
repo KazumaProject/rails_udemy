@@ -937,3 +937,21 @@ pp/views/
 ```
 
 form_が使用されている箇所を探す
+
+## RSpecの導入
+
+```bash
+docker-compose run web bundle exec rspec 
+```
+
+### generatorでテンプレートを生成
+```bash
+docker-c
+ompose exec web bundle exec rails g rspec:model U
+ser
+```
+
+### controllerのテストのテンプレート
+```bash
+docker-compose exec web bundle exec rails g rspec:controller User
+```
